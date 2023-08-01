@@ -2,6 +2,7 @@ import React from 'react'
 import fs from 'fs/promises';
 import path from 'path';
 import Link from 'next/link';
+import { NextResponse } from 'next/server';
 // import { cwd } from 'process';
 
 const Home = (props) => {
@@ -27,6 +28,16 @@ export async function getStaticProps() {
   const fileContent = await fs.readFile(filePath);
 
   const data = JSON.parse(fileContent);
+
+  if(!data){
+    return {
+      redirect:{
+        destination:'no-data',
+      }
+    }
+  }
+
+
   return {
     props: {
       data

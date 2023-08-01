@@ -53,14 +53,18 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
 
-    const data = await getData();
-    const ids = data.map(id => id);
+    const allData = await getData();
+    // const{data} = allData;
+    // console.log(data);
+    const ids = allData.data.map(data => data.id);
+    console.log(ids)
     const pathsWithParams = ids.map(id => ({ params: { id } }));
 
     return {
         paths: pathsWithParams,
         // fallback: true
-        fallback: 'blocking',
+        // fallback: 'blocking',
+        fallback:false
 
     }
 }
